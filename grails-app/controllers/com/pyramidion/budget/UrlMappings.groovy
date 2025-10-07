@@ -1,4 +1,4 @@
-package budget.approval.system
+package com.pyramidion.budget
 
 class UrlMappings {
 

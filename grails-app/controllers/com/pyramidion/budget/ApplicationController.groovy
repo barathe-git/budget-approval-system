@@ -1,4 +1,4 @@
-package budget.approval.system
+package com.pyramidion.budget
 
 import grails.core.GrailsApplication
 import grails.plugins.*

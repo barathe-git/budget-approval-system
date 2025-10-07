@@ -1,4 +1,4 @@
-package budget.approval.system
+package com.pyramidion.budget
 
 import grails.boot.GrailsApp
 import grails.boot.config.GrailsAutoConfiguration
