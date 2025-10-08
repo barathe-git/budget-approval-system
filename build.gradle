@@ -1,4 +1,5 @@
 buildscript {
+    ext.grailsGradlePluginVersion = '5.2.2' // replace with your Grails version
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://repo.grails.org/grails/core" }
@@ -32,52 +33,56 @@ configurations {
 }
 
 dependencies {
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    compileOnly "io.micronaut:micronaut-inject-groovy"
-    console "org.grails:grails-console"
-    implementation "org.springframework.boot:spring-boot-starter-logging"
-    implementation "org.springframework.boot:spring-boot-starter-validation"
-    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    // Development
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+
+    // Grails core & plugins
     implementation "org.grails:grails-core"
-    implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.grails:grails-web-boot"
+    implementation "org.grails:grails-plugin-datasource"
+    implementation "org.grails:grails-plugin-services"
+    implementation "org.grails:grails-plugin-interceptors"
+    implementation "org.grails:grails-plugin-codecs"
     implementation "org.grails:grails-plugin-url-mappings"
     implementation "org.grails:grails-plugin-rest"
-    implementation "org.grails:grails-plugin-codecs"
-    implementation "org.grails:grails-plugin-interceptors"
-    implementation "org.grails:grails-plugin-services"
-    implementation "org.grails:grails-plugin-datasource"
     implementation "org.grails:grails-plugin-databinding"
-    implementation "org.grails:grails-web-boot"
-    implementation "org.grails:grails-logging"
-    implementation "org.grails.plugins:cache"
-    implementation "org.grails.plugins:async"
     implementation "org.grails.plugins:hibernate5"
     implementation "org.hibernate:hibernate-core:5.6.11.Final"
+    implementation "org.grails.plugins:cache"
+    implementation "org.grails.plugins:async"
     implementation "org.grails.plugins:events"
     implementation "org.grails.plugins:views-json"
     implementation "org.grails.plugins:views-json-templates"
-    profile "org.grails.profiles:rest-api"
-    runtimeOnly "org.glassfish.web:el-impl:2.2.1-b05"
+
+    // Spring Boot
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+    // Jakarta EL
+    implementation "org.glassfish:jakarta.el:4.0.2"
+
+    // Database / runtime
     runtimeOnly "com.h2database:h2"
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
-    runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
-    testImplementation "io.micronaut:micronaut-inject-groovy"
+
+    // Test
     testImplementation "org.grails:grails-gorm-testing-support"
-    testImplementation "org.mockito:mockito-core"
-    testImplementation "io.micronaut:micronaut-http-client"
     testImplementation "org.grails:grails-web-testing-support"
     testImplementation "org.grails:views-json-testing-support"
-    testImplementation 'org.hibernate.validator:hibernate-validator:7.0.0.CR1'
+    testImplementation "org.mockito:mockito-core"
+    testImplementation "org.springframework.boot:spring-boot-starter-validation"
 }
 
 bootRun {
     ignoreExitValue true
     jvmArgs(
-        '-Dspring.output.ansi.enabled=always', 
-        '-noverify', 
-        '-XX:TieredStopAtLevel=1',
-        '-Xmx1024m')
+            '-Dspring.output.ansi.enabled=always',
+            '-noverify',
+            '-XX:TieredStopAtLevel=1',
+            '-Xmx1024m')
     sourceResources sourceSets.main
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
