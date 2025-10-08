@@ -26,8 +26,8 @@ budget-app/                           <-- root
 │   │       └── User.groovy
 │   ├── services/
 │   │   └── com/pyramidion/budget/
-│   │       ├── BudgetRequestService.java
-│   │       └── AuditLogService.java
+│   │       ├── BudgetRequestService.groovy
+│   │       └── AuditLogService.groovy
 │   └── conf/
 │       └── application.yml
 ├── src/test/groovy/
